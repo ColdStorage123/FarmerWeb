@@ -4,7 +4,7 @@ const AcceptedCSR = () => {
   const [acceptedStorages, setAcceptedStorages] = useState([]);
 
   useEffect(() => {
-    // Fetch accepted cold storages from the server
+
     fetch('http://192.168.243.1:3002/accepted-storages', {
       method: 'GET'
     })
@@ -29,7 +29,7 @@ const AcceptedCSR = () => {
             <strong>Description:</strong> {storage.description}<br />
             <strong>Capacity:</strong> {storage.capacity}<br />
             <strong>Location:</strong> {storage.location}<br />
-            {/* Additional details as needed */}
+      
             <hr />
           </li>
         ))}
