@@ -1,4 +1,4 @@
-// AboutUs.js
+
 import React from 'react';
 import { Typography, Container, Paper, Avatar } from '@mui/material';
 import { Person as PersonIcon } from '@mui/icons-material';
