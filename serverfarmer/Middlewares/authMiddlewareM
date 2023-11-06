@@ -1,0 +1,51 @@
+/* const jwt = require('jsonwebtoken');
+const User = require('../models/User'); // Import your User model
+
+const authMiddlewareM = async (req, res, next) => {
+  const token = req.header('Authorization'); // Get the token from the request header
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET); // Verify the token
+
+    const user = await User.findOne({ _id: decoded._id, role: 'Manager' }); // Check if the user is a manager
+
+    if (!user) {
+      throw new Error('Unauthorized'); // If not a manager, throw an error
+    }
+
+    req.user = user; // Set the user object in the request for further use if needed
+    next(); // Allow access to the route
+  } catch (error) {
+    res.status(401).json({ error: 'Unauthorized' }); // If verification fails, send unauthorized response
+  }
+};
+
+module.exports = authMiddlewareM;
+  */
+ const jwt = require('jsonwebtoken');
+const User = require('../models/User'); // Import your User model
+
+const authMiddlewareM = async (req, res, next) => {
+  const token = req.header('Authorization'); // Get the token from the request header
+
+  try {
+    if (!token) {
+      throw new Error('Unauthorized'); // If token is missing, throw an error
+    }
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET); // Verify the token
+
+    const user = await User.findOne({ _id: decoded._id }); // Check if the user exists
+
+    if (!user) {
+      throw new Error('Unauthorized'); // If user not found, throw an error
+    }
+
+    req.user = user; // Set the user object in the request for further use if needed
+    next(); // Allow access to the route
+  } catch (error) {
+    res.status(401).json({ error: 'Unauthorized' }); // If verification fails, send unauthorized response
+  }
+};
+
+module.exports = authMiddlewareM;
